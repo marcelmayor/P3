@@ -12,6 +12,12 @@ namespace upc {
 
     for (unsigned int l = 0; l < r.size(); ++l) {
   		/// \TODO Compute the autocorrelation r[l]
+      /// \DONE Hecho por Albino
+      r[l]=0; //Inicialización
+      for( unsigned int n = 0; n < x.size(); n++){
+
+        r[l]+=x[n-l]*x[n];
+      }
     }
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
