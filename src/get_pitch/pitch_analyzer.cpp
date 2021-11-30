@@ -60,6 +60,8 @@ namespace upc {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
+
+    /// \DONE Realizado
    bool unvoiced = false;
 
    if(pot < -32.48 || r1norm < 0.85 || rmaxnorm < 0.35){
