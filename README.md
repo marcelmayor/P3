@@ -49,7 +49,7 @@ Ejercicios básicos
 
      El objetivo del siguiente código es iterar en el intervalo del [npitch_min, npitch_max] hasta encontrar la posición del máximo secundario.
 
-     <kbd><img src="img/Matlab_subplots.PNG" align="center"></kbd>
+     <kbd><img src="img/detection_pitch_function.PNG" align="center"></kbd>
 
      A continuación, si ejecutamos nuestro programa de detección de pitch a nuestra señal vocálica, el resultado es el siguiente:
 
