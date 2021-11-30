@@ -173,7 +173,42 @@ Ejercicios de ampliación
   También se valorará la realización de un estudio de los parámetros involucrados. Por ejemplo, si se opta
   por implementar el filtro de mediana, se valorará el análisis de los resultados obtenidos en función de
   la longitud del filtro.
-   
+
+  Como técnica de pre-procesado hemos optado por realizar ***Center-Clipping***.
+  Esta técnica trata a partir de una  señal inicial x[n], obtener la señal preprocesada y[n] recortada en función de un umbral (*thCC*) situado un 3% sobre el valor máximo de la señal x[n].
+
+  <kbd><img src="img/CC_process.PNG" align="center"></kbd>
+
+  El resultado es llegar a aplanar el espectro de la señal inicial. Esto da como resultado el aumento del carácter distintivo de los verdaderos picos de período en la función de autocorrelació.
+
+  El código implementado es el siguiente:
+
+  <kbd><img src="img/CC_code.PNG" align="center"></kbd>
+
+  Finalmente, hemos optado por un umbral del 1%, porque para el 3% no mejoraba la detección. No obstante, para este nuevo umbral el score mejora unas dácimas a **89,79%**
+
+
+  Como técnica de post-procesado hemos optado por realizar ***Filtro de Mediana***.
+  Este consiste en suavizar los picos erróneos de la autocorrelación asignando en cada tramo el valor de la mediana local. El objetivo es normalizar aquellos picos erróneos a partir de los valores de su alrededor.
+
+  Para la implementación del código realizamos la mediana a partir del resultado medio de la trama anterior, actual y siguiente.
+
+  El código implementado es el siguiente:
+
+  <kbd><img src="img/median_code.PNG" align="center"></kbd>
+
+  Para finalizar, hemos cambiado algunos umbrales de potencia y autocorrelación ya que hemos modificado la señal. La siguiente figura muestra secuencialmente cómo afectan todos estos cambios a nuestra señal de voz.
+
+  <kbd><img src="img/final_results.PNG" align="center"></kbd>
+
+  La primera corresponde al resultado de nuestro detector óptimo sin cambios ni procesado alguno.
+  La segunda corresponde al resultado de haberle aplicado Center Clipping. En este caso, no se percibe mucha diferencia ya que solamente tenemos un umbral del 1%.
+  La última es el resultado de haber introducido un filtro de mediana. Como podemos ver, aquel pico erróneo ha desaparecido.
+  Por último, modificando los umbrales de la detección sonora, vemos que ahora el hay partes del contorno que no se cortan.
+
+  Una vez implementados estos códigos nuestro score de detección aumenta al **91,14%**.
+
+  
 
 Evaluación *ciega* del detector
 -------------------------------

@@ -12,7 +12,7 @@ namespace upc {
 
     for (unsigned int l = 0; l < r.size(); ++l) {
   		/// \TODO Compute the autocorrelation r[l]
-      /// \DONE Hecho por Albino en clase
+      /// \DONE Realizado
 
       r[l] = 0; //Inicialización
       for(unsigned int n = l; n < x.size(); n++){
@@ -36,6 +36,11 @@ namespace upc {
     switch (win_type) {
     case HAMMING:
       /// \TODO Implement the Hamming window
+      /// \DONE Realizado
+       for(unsigned int n = 0; n < frameLen; n++){
+         
+          window[n] = 0.54 - 0.46*cos((2*3.1416*n)/(frameLen-1));
+       }
 
       break;
     case RECT:
@@ -64,7 +69,7 @@ namespace upc {
     /// \DONE Realizado
    bool unvoiced = false;
 
-   if(pot < -32.48 || r1norm < 0.85 || rmaxnorm < 0.35){
+   if(pot < -18.48 || r1norm < 0.55 || rmaxnorm < 0.4){
      unvoiced = true;
     }
     return unvoiced;

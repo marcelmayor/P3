@@ -64,6 +64,26 @@ int main(int argc, const char *argv[]) {
   /// \TODO
   /// Preprocess the input signal in order to ease pitch estimation. For instance,
   /// central-clipping or low pass filtering may be used.
+  /// \DONE Realizado
+  float maxValue = 0.0F;
+  for(unsigned int k = 0; k< x.size(); k++){ //Busqueda del máximo de la señal
+    if(x[k]> maxValue)
+    maxValue = x[k];
+
+  }
+
+  float thCC = 0.01*maxValue; //Umbral 1% max{x[n]}
+  for(unsigned int k = 0; k < x.size(); k++){ //Función de recorte
+    if (x[k] > thCC)
+     x[k] -= thCC;
+
+    else if (x[k] < -thCC)
+    x[k] -= thCC;
+
+    else
+    x[k] = 0;
+  }
+
   
   // Iterate for each frame and save values in f0 vector
   vector<float>::iterator iX;
@@ -76,6 +96,30 @@ int main(int argc, const char *argv[]) {
   /// \TODO
   /// Postprocess the estimation in order to supress errors. For instance, a median filter
   /// or time-warping may be used.
+  /// \DONE Realizado
+
+   int Nfilter = 3;
+   for (unsigned int i = (Nfilter-1)/2; i < f0.size() - (Nfilter-1)/2; ++i){
+     float Cw[Nfilter];
+
+     for (int j = 0; j < Nfilter; ++j)
+ 	      Cw[j] = f0[i - (Nfilter-1)/2 + j];
+
+     for (int j = 0; j < Nfilter - (Nfilter-1)/2; ++j){
+ 	      int min = j;
+
+ 	      for (int k = j + 1; k < Nfilter; ++k)
+ 	        if (Cw[k] < Cw[min])
+ 	          min = k;
+
+        const float temp = Cw[j];
+        Cw[j] = Cw[min];
+        Cw[min] = temp;
+     }
+     f0[i] = Cw[(Nfilter-1)/2];
+   }
+
+
 
   // Write f0 contour into the output file
   ofstream os(output_txt);
