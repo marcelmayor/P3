@@ -12,12 +12,15 @@ namespace upc {
 
     for (unsigned int l = 0; l < r.size(); ++l) {
   		/// \TODO Compute the autocorrelation r[l]
-      /// \DONE Hecho por Albino
-      r[l]=0; //Inicialización
-      for( unsigned int n = 0; n < x.size(); n++){
+      /// \DONE Hecho por Albino en clase
 
-        r[l]+=x[n-l]*x[n];
+      r[l] = 0; //Inicialización
+      for(unsigned int n = l; n < x.size(); n++){
+
+        r[l] += x[n-l]*x[n];
+
       }
+      r[l]/r.size(); //Promedio de la suma
     }
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
@@ -33,6 +36,7 @@ namespace upc {
     switch (win_type) {
     case HAMMING:
       /// \TODO Implement the Hamming window
+
       break;
     case RECT:
     default:
@@ -56,7 +60,13 @@ namespace upc {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-    return true;
+   bool unvoiced = false;
+
+   if(pot < -32.48 || r1norm < 0.85 || rmaxnorm < 0.35){
+     unvoiced = true;
+    }
+    return unvoiced;
+    
   }
 
   float PitchAnalyzer::compute_pitch(vector<float> & x) const {
@@ -72,15 +82,24 @@ namespace upc {
     //Compute correlation
     autocorrelation(x, r);
 
-    vector<float>::const_iterator iR = r.begin(), iRMax = iR;
+    vector<float>::const_iterator iR = r.begin(), iRMax = r.begin() + npitch_min;
 
-    /// \TODO 
+    /// \TODO
 	/// Find the lag of the maximum value of the autocorrelation away from the origin.<br>
 	/// Choices to set the minimum value of the lag are:
 	///    - The first negative value of the autocorrelation.
 	///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
+  /// \DONE Realizado
+
+  for( iR= r.begin() + npitch_min; iR < r.begin() + npitch_max; iR++){
+    if(*iR > *iRMax){
+      iRMax = iR;
+
+    }
+
+  }
 
     unsigned int lag = iRMax - r.begin();
 
@@ -89,14 +108,44 @@ namespace upc {
     //You can print these (and other) features, look at them using wavesurfer
     //Based on that, implement a rule for unvoiced
     //change to #if 1 and compile
-#if 0
+#if 1
     if (r[0] > 0.0F)
       cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl;
 #endif
-    
+
+    //Descomentar en caso de querer generar un archivo con el pitch de cada tramo
+#if 1    
     if (unvoiced(pot, r[1]/r[0], r[lag]/r[0]))
       return 0;
     else
       return (float) samplingFreq/(float) lag;
+#endif 
+
+    //Descomentar en caso de querer generar un archivo con la pot. de cada tramo
+#if 0
+    if (unvoiced(pot, r[1]/r[0], r[lag]/r[0]))
+      return (float) pot;
+    else
+      return 0;
+  
+#endif
+
+    //Descomentar en caso de querer generar un archivo con la autocorrelacion norm. de cada tramo
+#if 0
+    if (unvoiced(pot, r[1]/r[0], r[lag]/r[0]))
+      return (float) r[1]/r[0];
+    else
+      return 0;
+  
+#endif
+
+    //Descomentar en caso de querer generar un archivo con el valor de la autocorrelación en su máximo secundario de cada tramo
+#if 0
+    if (unvoiced(pot, r[1]/r[0], r[lag]/r[0]))
+      return (float) r[lag]/r[0];
+    else
+      return 0;
+  
+#endif
   }
 }
