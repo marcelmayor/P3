@@ -78,7 +78,7 @@ int main(int argc, const char *argv[]) {
      x[k] -= thCC;
 
     else if (x[k] < -thCC)
-    x[k] -= thCC;
+    x[k] += thCC;
 
     else
     x[k] = 0;

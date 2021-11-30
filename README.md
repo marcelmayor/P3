@@ -204,11 +204,13 @@ Ejercicios de ampliación
   La primera corresponde al resultado de nuestro detector óptimo sin cambios ni procesado alguno.
   La segunda corresponde al resultado de haberle aplicado Center Clipping. En este caso, no se percibe mucha diferencia ya que solamente tenemos un umbral del 1%.
   La última es el resultado de haber introducido un filtro de mediana. Como podemos ver, aquel pico erróneo ha desaparecido.
-  Por último, modificando los umbrales de la detección sonora, vemos que ahora el hay partes del contorno que no se cortan.
+  Por último, modificando los umbrales de la detección sonora, vemos que ahora hay partes del contorno que no se cortan.
 
-  Una vez implementados estos códigos nuestro score de detección aumenta al **91,14%**.
+  Una vez implementados estos códigos nuestro score de detección aumenta al **91,20%**.
 
-  
+  <kbd><img src="img/score_final.PNG" align="center"></kbd>
+
+
 
 Evaluación *ciega* del detector
 -------------------------------

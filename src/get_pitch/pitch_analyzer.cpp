@@ -69,7 +69,7 @@ namespace upc {
     /// \DONE Realizado
    bool unvoiced = false;
 
-   if(pot < -18.48 || r1norm < 0.55 || rmaxnorm < 0.4){
+   if(pot < -22.48 || r1norm < 0.55 || rmaxnorm < 0.4){
      unvoiced = true;
     }
     return unvoiced;
