@@ -19,7 +19,7 @@ Ejercicios básicos
 
    Tal como se explicó en la clase de laboratorio, el código de la autocorrelación de una señal discreta es el siguiente:
 
-   <kbd><img src="img/autocorrelation_function.PNG" align="center"></kbd>
+   <kbd><img src="img/Autocorrelation_function.PNG" align="center"></kbd>
 
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un segmento de
      unos 30 ms de un fonema sonoro y su periodo de pitch; y, en otro *subplot*, se vea con claridad la
