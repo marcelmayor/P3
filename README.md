@@ -183,7 +183,7 @@ Ejercicios de ampliación
 
   El código implementado es el siguiente:
 
-  <kbd><img src="img/CC_code.PNG" align="center"></kbd>
+  <kbd><img src="img/CenterClipping_code.PNG" align="center"></kbd>
 
   Finalmente, hemos optado por un umbral del 1%, porque para el 3% no mejoraba la detección. No obstante, para este nuevo umbral el score mejora unas dácimas a **89,79%**
 
